@@ -2,6 +2,10 @@
 Использованы технологии:
 - Jetpack Compose - навигация от Google
 - LazyColumn c Paging3
+
+  <imhttps://github.com/AlekseyFokin/RickMortyJetpackCompose/blob/main/presentation1.gif
+
+  
 Состоит из 3 экранов:
 - Список героев мультфильма
 - Характеристик героя
