@@ -3,9 +3,8 @@
 - Jetpack Compose - навигация от Google
 - LazyColumn c Paging3
 
-  <imhttps://github.com/AlekseyFokin/RickMortyJetpackCompose/blob/main/presentation1.gif
-
-  
+<img src="https://github.com/AlekseyFokin/RickMortyJetpackCompose/blob/main/presentation1.gif" alt="gif" width="360" height="800">
+    
 Состоит из 3 экранов:
 - Список героев мультфильма
 - Характеристик героя
