@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RickAndMortyOnJPC</string>
+    <string name="last_known_location_lebel">Last known location:</string>
+    <string name="hero_image_description">hero_image</string>
+    <string name="error_message_label">Произошла ошибка загрузки данных</string>
+    <string name="reload_button_label">Перезагрузить</string>
+    <string name="close_app_button_label">Закрыть приложение</string>
+</resources>
