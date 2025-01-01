@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,6 +35,8 @@ import org.sniffsnirr.rickandmortyonjpc.ui.theme.RecyclerviewBackground
 import org.sniffsnirr.rickandmortyonjpc.ui.theme.TextColor
 import org.sniffsnirr.rickandmortyonjpc.ui.theme.UnknownColor
 import org.sniffsnirr.rickandmortyonjpc.ApiViewModel
+import org.sniffsnirr.rickandmortyonjpc.ui.CharacterViewCompanion.Companion.CHARACTER_COLUMN_TEST_TEG
+import org.sniffsnirr.rickandmortyonjpc.ui.CharacterViewCompanion.Companion.CHARACTER_NAME_TEST_TEG
 
 @Composable
 fun CharacterView(viewModel: ApiViewModel) {// экран героя
@@ -46,7 +49,7 @@ fun CharacterView(viewModel: ApiViewModel) {// экран героя
         modifier = Modifier
             .padding(8.dp)
             .background(RecyclerviewBackground)
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()).testTag(CHARACTER_COLUMN_TEST_TEG)
     ) {
         AsyncImage(
             model = character?.image,
@@ -61,7 +64,7 @@ fun CharacterView(viewModel: ApiViewModel) {// экран героя
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             color = TextColor,
-            modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 8.dp)
+            modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 8.dp).testTag(CHARACTER_NAME_TEST_TEG)
         )
         val gradient = Brush.horizontalGradient(
             colors = listOf(Color.White, RecyclerviewBackground),
@@ -153,5 +156,11 @@ fun CharacterView(viewModel: ApiViewModel) {// экран героя
                 EpisodeView(episode)
             }
         }
+    }
+}
+class CharacterViewCompanion(){
+    companion object{
+        const val CHARACTER_NAME_TEST_TEG="name"
+        const val CHARACTER_COLUMN_TEST_TEG="column"
     }
 }

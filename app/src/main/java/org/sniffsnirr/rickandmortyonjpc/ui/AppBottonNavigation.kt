@@ -9,6 +9,8 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.compose.currentBackStackEntryAsState
 import org.sniffsnirr.rickandmortyonjpc.ui.theme.CommentColor
@@ -25,7 +27,7 @@ fun AppBottomNavigation(navController: NavController) {// нижнее меню 
     NavigationBar(containerColor = FragmentBackground) {
         val backstackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = backstackEntry?.destination?.route ?: NavigationMenuItem.SCREEN_1
-        listScreens.forEach { item ->
+        listScreens.forEachIndexed {index, item ->
             NavigationBarItem(
                 selected = currentRoute == item.route,
                 icon = {
@@ -37,7 +39,7 @@ fun AppBottomNavigation(navController: NavController) {// нижнее меню 
                 onClick = {navController.navigate(item.route){popUpTo(item.route){inclusive=true} }
 
                 },
-                label = { Text(text = item.title) },
+                label = { Text(text = item.title, modifier = Modifier.testTag("menu_button_${index}")) },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = TextColor,
                     selectedTextColor = TextColor,

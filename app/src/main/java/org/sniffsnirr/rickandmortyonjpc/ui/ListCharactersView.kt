@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
@@ -24,13 +25,13 @@ import org.sniffsnirr.rickandmortyonjpc.ui.theme.DeadColor
 import org.sniffsnirr.rickandmortyonjpc.ui.theme.ProgressColor
 import org.sniffsnirr.rickandmortyonjpc.ui.theme.RecyclerviewBackground
 import org.sniffsnirr.rickandmortyonjpc.ApiViewModel
+import org.sniffsnirr.rickandmortyonjpc.ui.ListCharactersViewCompanion.Companion.LIST_OF_CHARACTERS_TEST_TAG
 
 @Composable
 fun ListCharactersView(viewModel: ApiViewModel, navController: NavHostController) {
 
     val charactersData =
         viewModel.pagesCharacters.collectAsLazyPagingItems()// постраничная отображение и загрузка героев
-    val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
     LazyColumn(
@@ -39,19 +40,15 @@ fun ListCharactersView(viewModel: ApiViewModel, navController: NavHostController
         modifier = Modifier
             .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 16.dp)
             .background(RecyclerviewBackground)
-        //.verticalScroll(rememberScrollState())
+            .testTag(LIST_OF_CHARACTERS_TEST_TAG)
     ) {
-        //Log.d("Позиция в listState","${listState.firstVisibleItemIndex}")
-        //coroutineScope.launch() {
-        //    listState.animateScrollToItem(listState.firstVisibleItemIndex)
-        // }
 
         items(
             count = charactersData.itemCount,
             key = charactersData.itemKey { it.id }) { index ->
             val character = charactersData[index]
             if (character != null) {
-                ItemCharacterView(character, navController, viewModel)
+                ItemCharacterView(character, navController, viewModel,"$index")
             }
         }
         when {// обработка состояний
@@ -117,5 +114,10 @@ fun ListCharactersView(viewModel: ApiViewModel, navController: NavHostController
             }
         }
 
+    }
+}
+class ListCharactersViewCompanion(){
+    companion object{
+        const val LIST_OF_CHARACTERS_TEST_TAG="characterList"
     }
 }

@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,10 +34,13 @@ import org.sniffsnirr.rickandmortyonjpc.ui.theme.TextColor
 import org.sniffsnirr.rickandmortyonjpc.ui.theme.UnknownColor
 import org.sniffsnirr.rickandmortyonjpc.ui.pagingcharacters.model.Character
 import org.sniffsnirr.rickandmortyonjpc.ApiViewModel
+import org.sniffsnirr.rickandmortyonjpc.ui.pagingcharacters.ItemCharacterViewCompanion.Companion.ITEM_COLUMN_TEST_TEG
+import org.sniffsnirr.rickandmortyonjpc.ui.pagingcharacters.ItemCharacterViewCompanion.Companion.ITEM_NAME_TEST_TEG
+import org.sniffsnirr.rickandmortyonjpc.ui.pagingcharacters.ItemCharacterViewCompanion.Companion.ITEM_ROW_TEST_TEG
 
 
 @Composable
-fun ItemCharacterView(character: Character, navController: NavController,viewModel: ApiViewModel) {// элемент ленивого списка героев
+fun ItemCharacterView(character: Character, navController: NavController,viewModel: ApiViewModel, testTag:String) {// элемент ленивого списка героев
     Card(
         shape = RoundedCornerShape(10.dp),modifier = Modifier.fillMaxWidth(),colors = CardDefaults.cardColors(
             containerColor = ItemBackground
@@ -47,7 +51,7 @@ fun ItemCharacterView(character: Character, navController: NavController,viewMod
             navController.navigate(NavigationMenuItem.SCREEN_2)
         }
     ) {
-        Row {
+        Row (modifier = Modifier.testTag("${ITEM_ROW_TEST_TEG}_${testTag}")){
             AsyncImage(
                 model = character.image,
                 contentDescription = "Character pic",
@@ -62,12 +66,14 @@ fun ItemCharacterView(character: Character, navController: NavController,viewMod
                 modifier = Modifier
                     .padding(start=8.dp,top = 8.dp, bottom = 8.dp)
                     .background(ItemBackground)
+                    .testTag("${ITEM_COLUMN_TEST_TEG}_${testTag}")
             ) {
                 Text(
                     text = character.name,
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
-                    color = TextColor
+                    color = TextColor,
+                    modifier = Modifier.testTag("${ITEM_NAME_TEST_TEG}_${testTag}")
                 )
                 Row(
                     horizontalArrangement = Arrangement.Start,
@@ -103,5 +109,13 @@ fun ItemCharacterView(character: Character, navController: NavController,viewMod
                 )
             }
         }
+    }
+}
+
+class ItemCharacterViewCompanion(){
+    companion object{
+        const val ITEM_NAME_TEST_TEG="name"
+        const val ITEM_ROW_TEST_TEG="row"
+        const val ITEM_COLUMN_TEST_TEG="column"
     }
 }

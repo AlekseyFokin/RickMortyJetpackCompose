@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -21,6 +22,7 @@ import org.sniffsnirr.rickandmortyonjpc.ui.theme.DeadColor
 import org.sniffsnirr.rickandmortyonjpc.ui.theme.ProgressColor
 import org.sniffsnirr.rickandmortyonjpc.ui.theme.RecyclerviewBackground
 import org.sniffsnirr.rickandmortyonjpc.ApiViewModel
+import org.sniffsnirr.rickandmortyonjpc.ui.ListLocationsViewCompanion.Companion.NO_INTERNET_BUTTON
 
 @Composable
 fun ListLocationsView(viewModel: ApiViewModel) {
@@ -28,7 +30,7 @@ fun ListLocationsView(viewModel: ApiViewModel) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(10.dp),
         modifier = Modifier
-            .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 56.dp)
+            .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 16.dp)
             .background(RecyclerviewBackground)
     ) {
         items(
@@ -58,7 +60,7 @@ fun ListLocationsView(viewModel: ApiViewModel) {
                     Row(modifier = Modifier
                         .fillParentMaxWidth()
                         .padding(16.dp)) {
-                        Button(onClick = { locationsData.retry() }) { Text(text = "Повторить загрузку") }
+                        Button(onClick = { locationsData.retry() }, modifier = Modifier.testTag(NO_INTERNET_BUTTON)) { Text(text = "Повторить загрузку") }
                         Text(
                             color = DeadColor,
                             text = "Ошибка загрузки",
@@ -84,7 +86,7 @@ fun ListLocationsView(viewModel: ApiViewModel) {
                     Row(modifier = Modifier
                         .fillParentMaxWidth()
                         .padding(16.dp)) {
-                        Button(onClick = { locationsData.retry() }) { Text(text = "Повторить загрузку") }
+                        Button(onClick = { locationsData.retry() }, modifier = Modifier.testTag(NO_INTERNET_BUTTON)) { Text(text = "Повторить загрузку") }
                         Text(
                             color = DeadColor,
                             text = "Ошибка загрузки",
@@ -95,5 +97,10 @@ fun ListLocationsView(viewModel: ApiViewModel) {
             }
         }
 
+    }
+}
+class ListLocationsViewCompanion(){
+    companion object{
+        const val NO_INTERNET_BUTTON="no_internet_button"
     }
 }
