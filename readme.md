@@ -1,4 +1,5 @@
 Демонстрационное android - приложение с Jetpack Compose
+
 Использованы технологии:
 - Jetpack Compose - навигация от Google
 - LazyColumn c Paging3
